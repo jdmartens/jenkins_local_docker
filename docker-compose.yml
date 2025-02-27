@@ -1,6 +1,6 @@
 services:
   jenkins:
-    build: .
+    image: optimized-jenkins:latest
     container_name: jenkins-local
     restart: unless-stopped
     networks:

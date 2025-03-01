@@ -1,4 +1,3 @@
-# filepath: /Users/jeremymartens/sourcecode/jenkins_local_docker/docker-compose.yml
 services:
   jenkins:
     build: .
@@ -12,8 +11,6 @@ services:
     volumes:
       - jenkins-data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - DOCKER_GROUP_ID=${DOCKER_GROUP_ID}
   docker:
     image: docker:dind
     container_name: docker

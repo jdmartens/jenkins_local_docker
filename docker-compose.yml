@@ -1,26 +1,33 @@
+# filepath: /Users/jeremymartens/sourcecode/jenkins_local_docker/docker-compose.yml
 services:
   jenkins:
-    image: optimized-jenkins:latest
+    build: .
     container_name: jenkins-local
     restart: unless-stopped
     networks:
       - jenkins
-    environment:
-      - DOCKER_HOST=tcp://docker:2376
-      - DOCKER_CERT_PATH=/certs/client
-      - DOCKER_TLS_VERIFY=1
     ports:
       - "8081:8080"
       - "50000:50000"
     volumes:
       - jenkins-data:/var/jenkins_home
-      - jenkins-docker-certs:/certs/client:ro
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_GROUP_ID=${DOCKER_GROUP_ID}
+  docker:
+    image: docker:dind
+    container_name: docker
+    privileged: true
+    networks:
+      - jenkins
+    volumes:
+      - jenkins-docker-data:/var/lib/docker
+    group_add:
+      - docker
 
 networks:
   jenkins:
 
 volumes:
   jenkins-data:
-  jenkins-docker-certs:
-
+  jenkins-docker-data:

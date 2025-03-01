@@ -1,7 +1,7 @@
 .PHONY: build run stop clean
 
 build:
-	docker build -t optimized-jenkins:latest .
+	docker build -t jenkins-local .
 
 run:
 	docker-compose up -d
